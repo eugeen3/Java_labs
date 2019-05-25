@@ -1,7 +1,9 @@
 bin/
-
+out/
 *.classpath
 *.project
 *.iml
-/
+*.fxml
+*.fxbuild
+.settings/
 .metadata/
