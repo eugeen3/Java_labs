@@ -62,13 +62,15 @@ public class MainWindow {
             public void handle(ActionEvent event) {
                 exSearch.addToMap(x.getText(), y.getText());
             }
+
         });
 
         findExtremums.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                ResultWindow resWin = new ResultWindow();
+                exSearch.findExtremes();
+                //ResultWindow resWin = new ResultWindow();
                 //exSearch.findExtremums();
-                resWin.displayWindow(primaryStage);
+                //resWin.displayWindow(primaryStage);
             }
         });
     }

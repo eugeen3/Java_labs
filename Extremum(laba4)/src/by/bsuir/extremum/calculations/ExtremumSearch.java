@@ -1,21 +1,26 @@
 package by.bsuir.extremum.calculations;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.TreeMap;
+import java.util.Map;
 import java.util.List;
+import java.util.Iterator;
 
 public class ExtremumSearch {
-    private HashMap<Integer, Integer> discreteFunction;
-    protected int[][] functionPoints;
+    protected static TreeMap<Integer, Integer> discreteFunction;
     protected static List<Integer> localMaximums;
     protected static List<Integer> localMinimums;
-    protected static Iterator<HashMap> currentPoint = null;
+    protected static Iterator<Map.Entry<Integer, Integer>> currentPoint;
+    protected static Iterator<Map.Entry<Integer, Integer>> leftPoint;
+    protected static Iterator<Map.Entry<Integer, Integer>> rightPoint;
     protected int amountOfPoints;
 
     public void findExtremes() {
-        for (int i = 0; i < functionPoints.length; i++) {
+        if(discreteFunction == null) {
+            //MSG
+        }
+
+        while (currentPoint.hasNext()){
             CheckingThread checkIfExtremum = new CheckingThread();
-            //currentPoint++;
             checkIfExtremum.run();
         }
     }
@@ -25,18 +30,18 @@ public class ExtremumSearch {
         Integer y = Integer.parseInt(yStr);
 
         if(discreteFunction == null) {
-            discreteFunction = new HashMap<Integer, Integer>();
+            discreteFunction = new TreeMap<Integer, Integer>();
         }
         discreteFunction.put(x, y);
     }
 
-    public void addToLocalMaximums(int value) {
+    public void addToLocalMaximums(Integer value) {
         synchronized(this) {
             localMaximums.add(value);
         }
     }
 
-    public void addToLocalMinimums(int value) {
+    public void addToLocalMinimums(Integer value) {
         synchronized(this) {
             localMinimums.add(value);
         }
