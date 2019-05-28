@@ -16,50 +16,46 @@ public class CheckingThread extends Thread {
 
         if (currentPoint == null) {
             leftValue = (Map.Entry)currentPoint;
+            Integer leftPoint = (Integer)leftValue.getValue();
         }
+        
+        currentValue = (Map.Entry)currentPoint.next();
+        Integer curPoint = (Integer)currentValue.getValue();
         
         Iterator<Map.Entry<Integer, Integer>> tempIter;
         tempIter = currentPoint;
         tempIter.next();
         rightValue = (Map.Entry)tempIter;
+        Integer rightPoint = (Integer)rightValue.getValue();
         
-        currentValue = (Map.Entry)currentPoint.next();
         if (currentValue.getKey().equals(discreteFunction.firstEntry().getKey())) {
-            Integer curVal = (Integer)currentValue.getValue();
-            Integer rightVal = (Integer)rightValue.getValue();
+            if (curPoint > rightPoint) {
+                points.addToLocalMaximums(curPoint);
+            }
+            else {
+                points.addToLocalMinimums(curPoint);
+            }
+            exit(0);
+        }
 
-            if (curVal > rightVal) {
+        if (curPoint > rightPoint && curPoint > leftPoint) {
+            points.addToLocalMaximums(curPoint);
+            exit(0);
+        }
+        
+        if (curPoint < rightPoint && curPoint < leftPoint) {
+            points.addToLocalMaximums(curPoint);
+            exit(0);
+        }
+
+        if (currentValue.getKey().equals(discreteFunction.lastEntry().getKey())) {
+            if (curPoint > leftPoint) {
                 points.addToLocalMaximums(curVal);
             }
             else {
                 points.addToLocalMinimums(curVal);
             }
-        }
-
-        if (cu) {
-            leftValue = currentValue - 1;
-        }
-        else {
-            leftValue =  points.functionPoints[1][currentPoint - 1];
-        }
-
-        if (currentPoint == points.amountOfPoints) {
-            rightValue =  currentValue - 1;
-        }
-        else {
-            rightValue =  points.functionPoints[1][currentPoint + 1];
-        }
-
-        if (currentValue > leftValue) {
-            if (currentValue > rightValue) {
-                points.addToLocalMaximums(currentValue);
-            }
-        }
-
-        if (currentValue < leftValue) {
-            if (currentValue < rightValue) {
-                points.addToLocalMinimums(currentValue);
-            }
+            exit(0);
         }
     }
 }
