@@ -5,6 +5,6 @@ out/
 *.iml
 *.fxml
 *.fxbuild
-.idea/
+/.idea
 .settings/
 .metadata/

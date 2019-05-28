@@ -69,7 +69,6 @@ public class MainWindow {
             public void handle(ActionEvent event) {
                 exSearch.findExtremes();
                 //ResultWindow resWin = new ResultWindow();
-                //exSearch.findExtremums();
                 //resWin.displayWindow(primaryStage);
             }
         });

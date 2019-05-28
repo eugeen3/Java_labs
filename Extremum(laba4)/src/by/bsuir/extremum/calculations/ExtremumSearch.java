@@ -1,28 +1,34 @@
 package by.bsuir.extremum.calculations;
 
-import java.util.TreeMap;
-import java.util.Map;
-import java.util.List;
-import java.util.Iterator;
+import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 public class ExtremumSearch {
     protected static TreeMap<Integer, Integer> discreteFunction;
     protected static List<Integer> localMaximums;
     protected static List<Integer> localMinimums;
-    protected static Iterator<Map.Entry<Integer, Integer>> currentPoint;
-    protected static Iterator<Map.Entry<Integer, Integer>> leftPoint;
-    protected static Iterator<Map.Entry<Integer, Integer>> rightPoint;
-    protected int amountOfPoints;
+    protected static Iterator<Map.Entry<Integer, Integer>> currentValue, leftValue, rightValue;
+    protected static CountDownLatch checkingThreads;
 
     public void findExtremes() {
         if(discreteFunction == null) {
             //MSG
         }
 
-        while (currentPoint.hasNext()){
+        checkingThreads = new CountDownLatch(discreteFunction.size());
+        CheckingThread first = new CheckingThread();
+        first.run();
+        while (currentValue.hasNext()){
             CheckingThread checkIfExtremum = new CheckingThread();
             checkIfExtremum.run();
         }
+        try {
+            checkingThreads.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Local maxis" + localMaximums);
+        System.out.println("Local minis" + localMinimums);
     }
 
     public void addToMap(String xStr, String yStr) {
