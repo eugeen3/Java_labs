@@ -14,12 +14,17 @@ public class CheckingThread extends Thread {
         ExtremumSearch points = new ExtremumSearch();
         Map.Entry currentValue,leftValue, rightValue;
 
+        if (currentPoint == null) {
+            leftValue = (Map.Entry)currentPoint;
+        }
+        
+        Iterator<Map.Entry<Integer, Integer>> tempIter;
+        tempIter = currentPoint;
+        tempIter.next();
+        rightValue = (Map.Entry)tempIter;
+        
         currentValue = (Map.Entry)currentPoint.next();
         if (currentValue.getKey().equals(discreteFunction.firstEntry().getKey())) {
-            Iterator<Map.Entry<Integer, Integer>> tempIter;
-            tempIter = currentPoint;
-            tempIter.next();
-            rightValue = (Map.Entry)tempIter;
             Integer curVal = (Integer)currentValue.getValue();
             Integer rightVal = (Integer)rightValue.getValue();
 
@@ -31,7 +36,7 @@ public class CheckingThread extends Thread {
             }
         }
 
-        if (currentPoint) {
+        if (cu) {
             leftValue = currentValue - 1;
         }
         else {
