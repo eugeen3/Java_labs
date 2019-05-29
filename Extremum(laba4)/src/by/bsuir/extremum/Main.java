@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         window = new MainWindow();
         window.setGridPaneParameters();
-        window.fillGridpane();
+        window.fillGridPane();
         window.setAction(primaryStage);
 
         primaryStage.setScene(window.getScene());
