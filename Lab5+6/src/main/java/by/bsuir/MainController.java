@@ -18,14 +18,17 @@ import java.util.stream.Stream;
 @Controller
 public class MainController {
 	
+	//Максимальное число из массива
 	@RequestMapping(value="/Lab5_maxNumber", method=RequestMethod.POST)
 	@ResponseBody
     public int maxInt(@RequestBody List<Integer> values) {
 		return values.stream()
 				.max(Comparator.comparing(Integer::intValue))
-                .get();
+                		.get();
 	}
 	
+	//Есть две коллекции с целочисленными элементами. Одну из них изменить таким образом, 
+	//чтобы содержала поэлементную сумму, вторую – поэлементную разность.
 	@RequestMapping(value="/Lab6_addAndSubract", method=RequestMethod.POST)
 	@ResponseBody
 	 public List<Integer> reducingByElement(@RequestBody List<Integer> firstList, List<Integer> secondList) {
@@ -36,11 +39,12 @@ public class MainController {
 					.sum()); 
 		
 		result.add(secondList.stream()
-				  		.reduce(0, (a, b) -> a - b));
+				  	.reduce(0, (a, b) -> a - b));
 		
 		return result;
 	}
 	
+	//Преобразовать массив строк в массив чисел
 	@RequestMapping(value="/Lab6_strToInt", method=RequestMethod.POST)
 	@ResponseBody
 	 public List<Integer> stringToInt(@RequestBody List<String> list) {
@@ -50,12 +54,13 @@ public class MainController {
 							
 	}
 	
+	//Найти строку с максимальной длиной
 	@RequestMapping(value="/Lab6_maxLength", method=RequestMethod.POST)
 	@ResponseBody
 	 public String maxString(@RequestBody List<String> list) {
 		return list.stream()
 				.max(Comparator.comparing(String::length))
-                .get();
+                		.get();
 							
 	}
 }
